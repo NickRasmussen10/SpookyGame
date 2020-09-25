@@ -9,7 +9,6 @@ public class ProcGen : MonoBehaviour
     GameObject[,] grid;
     float cellWidth = 1;
 
-
     // Start is called before the first frame update
     void Start()
     {
@@ -35,7 +34,7 @@ public class ProcGen : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        Debug.Log("test");
     }
 
     void GenerateRoom(int pX = 0, int pY = 0, int pWidth = 1, int pHeight = 1)
