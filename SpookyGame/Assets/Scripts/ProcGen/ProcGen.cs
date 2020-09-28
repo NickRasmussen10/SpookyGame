@@ -29,7 +29,7 @@ public class ProcGen : MonoBehaviour
         {
             for(int r = 0; r < grid.GetLength(1); r += 8)
             {
-                GenerateRoom(c, r);
+                GenerateRoom(c, r, Random.Range(0,12));
             }
         }
     }
