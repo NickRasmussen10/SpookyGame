@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.IO;
 
 public class ProcGen : MonoBehaviour
 {
@@ -8,11 +9,14 @@ public class ProcGen : MonoBehaviour
     [SerializeField] GameObject pref_gridObj;
     GameObject[,] grid;
     float cellWidth = 1;
+    
+    string[] modules;
 
     // Start is called before the first frame update
     void Start()
     {
-        grid = new GameObject[40, 20];
+        modules = File.ReadAllLines("Assets/Resources/modules.txt");
+        grid = new GameObject[8 * 5, 8 * 3]; //multiplied by 8 because ProcGen modules are 8x8
         for (int c = 0; c < grid.GetLength(0); c++)
         {
             for (int r = 0; r < grid.GetLength(1); r++)
@@ -21,33 +25,36 @@ public class ProcGen : MonoBehaviour
             }
         }
 
-        for (int i = 0; i < 3; i++)
+        for(int c = 0; c < grid.GetLength(0); c += 8)
         {
-            int x = Random.Range(0, grid.GetLength(0));
-            int y = Random.Range(0, grid.GetLength(1));
-            int width = Random.Range(3, 10);
-            int height = Random.Range(3, 10);
-            GenerateRoom(x, y, width, height);
+            for(int r = 0; r < grid.GetLength(1); r += 8)
+            {
+                GenerateRoom(c, r);
+            }
         }
     }
 
     // Update is called once per frame
     void Update()
     {
-        Debug.Log("test");
+
     }
 
-    void GenerateRoom(int pX = 0, int pY = 0, int pWidth = 1, int pHeight = 1)
+    void GenerateRoom(int pX = 0, int pY = 0, int module = 0)
     {
-        for (int c = pX; c < pX + pWidth; c++)
+        string[] room = new string[8];
+        for(int s = 0; s < room.Length; s++)
         {
-            for (int r = pY; r < pY + pHeight; r++)
+            room[s] = modules[(module*8) + s];
+        }
+
+        for(int c = 0; c < 8; c++)
+        {
+            for(int r = 0; r < 8; r++)
             {
-                if (c > grid.GetLength(0) - 1) continue;
-                else if (c < 0) continue;
-                else if (r > grid.GetLength(1) - 1) continue;
-                else if (r < 0) continue;
-                //grid[c, r].GetComponent<GridObj>().SetState(1);
+                char curr = room[r][c];
+                if (curr == '#') grid[pX + c, pY + r].GetComponent<GridObj>().SetState(1);
+                else if (curr == '.') grid[pX + c, pY + r].GetComponent<GridObj>().SetState(0);
             }
         }
     }

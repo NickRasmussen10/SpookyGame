@@ -4,6 +4,14 @@ using UnityEngine;
 
 public class GridObj : MonoBehaviour
 {
+    int state = 0;
+    SpriteRenderer sprite;
+
+    private void Awake()
+    {
+        sprite = GetComponent<SpriteRenderer>();
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -14,5 +22,21 @@ public class GridObj : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public void SetState(int pState)
+    {
+        state = pState;
+        switch (state)
+        {
+            case 0:
+                sprite.color = Color.white;
+                break;
+            case 1:
+                sprite.color = Color.black;
+                break;
+            default:
+                break;
+        }
     }
 }
