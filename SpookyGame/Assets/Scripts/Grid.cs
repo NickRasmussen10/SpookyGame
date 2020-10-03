@@ -43,29 +43,72 @@ public class Grid : MonoBehaviour
     //level generation stuff oh boy here we go
     void GenerateLevel()
     {
-        //TODO: change this to a 3D array
+        grid_modules = new int[4, 4];
+        //set all modules to -1
+        for (int i = 0; i < grid_modules.GetLength(0); i++)
+            for (int j = 0; j < grid_modules.GetLength(1); j++)
+                grid_modules[i, j] = -1;
+
+
+        SelectModules();
+
+        FillGrid();
+
+        GenerateOutline();
+    }
+
+    //this has a lot of for loops because there's a specific order to how it generates, I hate it too
+    void SelectModules()
+    {
+        //guarantee a downward module on top row
+        grid_modules[Random.Range(0, grid_modules.GetLength(0)), grid_modules.GetLength(1) - 1] = 1;
+        for (int c = 0; c < grid_modules.GetLength(0); c++)
+            if (grid_modules[c, grid_modules.GetLength(1) - 1] == -1) grid_modules[c, grid_modules.GetLength(1) - 1] = 0;
+
+        for (int r = grid_modules.GetLength(1) - 2; r >= 0; r--)
+        {
+            //link up previous row's downward modules to this row's upward modules
+            for (int c = 0; c < grid_modules.GetLength(1); c++)
+            {
+                if (grid_modules[c, r + 1] == 1) grid_modules[c, r] = 2;
+            }
+
+            //guarantee a downward module on this row anywhere but the preivous row's link
+            int mod_2_col = Random.Range(0, grid_modules.GetLength(0));
+            while (grid_modules[mod_2_col, r] != -1) mod_2_col = Random.Range(0, grid_modules.GetLength(0));
+            grid_modules[mod_2_col, r] = 1;
+
+            //fill in the rest of the row
+            for (int c = 0; c < grid_modules.GetLength(1); c++)
+            {
+                if (grid_modules[c, r] == -1) grid_modules[c, r] = 0;
+            }
+        }
+    }
+
+
+
+    //fills in each module with individual tiles, I can't think of a better name for it
+    void FillGrid()
+    {
+        //TODO: change this to a 3D array for fancy code
         string[] module0 = File.ReadAllLines("Assets/Resources/modules_type0.txt");
         string[] module1 = File.ReadAllLines("Assets/Resources/modules_type1.txt");
         string[] module2 = File.ReadAllLines("Assets/Resources/modules_type2.txt");
-
-        grid_modules = new int[4, 4];
-        for(int r = 0; r < grid_modules.GetLength(0); r++)
+        for (int r = 0; r < grid_modules.GetLength(0); r++)
         {
-            for(int c = 0; c < grid_modules.GetLength(1); c++)
+            for (int c = 0; c < grid_modules.GetLength(1); c++)
             {
-                int moduleType = Random.Range(0, 3);
-                grid_modules[c, r] = moduleType;
-
-                switch (moduleType)
+                switch (grid_modules[c, r])
                 {
                     case 0:
-                        FillGridWithModule(c * 10, r * 8, module0);
+                        FillModule(c * 10, r * 8, module0);
                         break;
                     case 1:
-                        FillGridWithModule(c * 10, r * 8, module1);
+                        FillModule(c * 10, r * 8, module1);
                         break;
                     case 2:
-                        FillGridWithModule(c * 10, r * 8, module2);
+                        FillModule(c * 10, r * 8, module2);
                         break;
                     default:
                         break;
@@ -74,7 +117,9 @@ public class Grid : MonoBehaviour
         }
     }
 
-    void FillGridWithModule(int pX, int pY, string[] module)
+
+
+    void FillModule(int pX, int pY, string[] module)
     {
         for(int r = 0; r < module.Length; r++)
         {
@@ -93,6 +138,21 @@ public class Grid : MonoBehaviour
                         break;
                 }
             }
+        }
+    }
+
+    //creates a wall round the level
+    void GenerateOutline()
+    {
+        for(int c = 0; c < grid.GetLength(0); c++)
+        {
+            grid[c, 0].GetComponent<GridObj>().SetState(1);
+            grid[c, grid.GetLength(1)-1].GetComponent<GridObj>().SetState(1);
+        }
+        for (int r = 1; r < grid.GetLength(1)-1; r++)
+        {
+            grid[0, r].GetComponent<GridObj>().SetState(1);
+            grid[grid.GetLength(0)-1, r].GetComponent<GridObj>().SetState(1);
         }
     }
 }

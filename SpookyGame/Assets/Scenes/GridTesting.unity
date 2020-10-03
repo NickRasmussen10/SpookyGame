@@ -232,8 +232,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: afb813ce7e23a854ba02e46c2fbbdb0f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rows: 10
-  cols: 10
+  rows: 32
+  cols: 40
   tileSize: 1
   pref_GridTile: {fileID: 1114286666878356576, guid: 85c583bbaea852d488efaf287635eb00,
     type: 3}
