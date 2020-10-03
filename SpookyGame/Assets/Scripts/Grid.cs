@@ -81,7 +81,7 @@ public class Grid : MonoBehaviour
             //fill in the rest of the row
             for (int c = 0; c < grid_modules.GetLength(1); c++)
             {
-                if (grid_modules[c, r] == -1) grid_modules[c, r] = 0;
+                if (grid_modules[c, r] == -1) grid_modules[c, r] = Random.Range(0, 3);
             }
         }
     }
