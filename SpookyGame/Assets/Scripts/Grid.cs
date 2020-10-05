@@ -37,6 +37,11 @@ public class Grid : MonoBehaviour
         
     }
 
+    public Vector3 GridToWorldPosition(Vector3 pos)
+    {
+        return new Vector3(pos.x * tileSize - (tileSize * cols / 2), pos.y * tileSize - (tileSize * rows / 2), 0);
+    }
+
 
 
 
