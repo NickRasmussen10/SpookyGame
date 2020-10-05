@@ -42,6 +42,11 @@ public class Grid : MonoBehaviour
         return new Vector3(pos.x * tileSize - (tileSize * cols / 2), pos.y * tileSize - (tileSize * rows / 2), 0);
     }
 
+    public bool VerifyPosition(int x, int y)
+    {
+        return grid[x, y].GetComponent<GridObj>().GetState() != 1;
+    }
+
 
 
 

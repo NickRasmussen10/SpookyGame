@@ -5,6 +5,7 @@ using UnityEngine;
 public class GridObj : MonoBehaviour
 {
     int state = 0;
+    public int GetState() { return state; }
     SpriteRenderer sprite;
 
     private void Awake()
