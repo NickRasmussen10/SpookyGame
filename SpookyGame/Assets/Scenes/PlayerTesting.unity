@@ -217,6 +217,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   followObj: {fileID: 0}
+  deadZone: {x: 3, y: 1}
 --- !u!1001 &1851029891
 PrefabInstance:
   m_ObjectHideFlags: 0
