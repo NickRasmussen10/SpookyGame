@@ -38,5 +38,9 @@ public class CameraFollow : MonoBehaviour
         //Vector3 newPos = followObj.position;
         //newPos.z = zPos;
         //transform.position = newPos;
+
+
+        //game close on esc (this should really be somewhere else but who's gonna stop me?
+        if (Input.GetKeyDown(KeyCode.Escape)) Application.Quit();
     }
 }
