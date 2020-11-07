@@ -102,23 +102,38 @@ public class Grid : MonoBehaviour
     void FillGrid()
     {
         //TODO: change this to a 3D array for fancy code
-        string[] module0 = File.ReadAllLines("Assets/Resources/modules_type0.txt");
-        string[] module1 = File.ReadAllLines("Assets/Resources/modules_type1.txt");
-        string[] module2 = File.ReadAllLines("Assets/Resources/modules_type2.txt");
+        string[] module_file0 = File.ReadAllLines("Assets/Resources/modules_type0.txt");
+        string[] module_file1 = File.ReadAllLines("Assets/Resources/modules_type1.txt");
+        string[] module_file2 = File.ReadAllLines("Assets/Resources/modules_type2.txt");
         for (int r = 0; r < grid_modules.GetLength(0); r++)
         {
             for (int c = 0; c < grid_modules.GetLength(1); c++)
             {
-                switch (grid_modules[c, r])
-                {
+                //TODO: make this support different numbers of modules for different module types
+                int moduleIndex = Random.Range(0, 2) * 8;
+                string[] module = new string[8];
+                    switch (grid_modules[c, r])
+                    {
                     case 0:
-                        FillModule(c * 10, r * 8, module0);
+                        for (int i = 0; i < module.Length; i++)
+                        {
+                            module[i] = module_file0[moduleIndex + i];
+                        }
+                        FillModule(c * 10, r * 8, module);
                         break;
                     case 1:
-                        FillModule(c * 10, r * 8, module1);
+                        for (int i = 0; i < module.Length; i++)
+                        {
+                            module[i] = module_file1[moduleIndex + i];
+                        }
+                        FillModule(c * 10, r * 8, module);
                         break;
                     case 2:
-                        FillModule(c * 10, r * 8, module2);
+                        for (int i = 0; i < module.Length; i++)
+                        {
+                            module[i] = module_file2[moduleIndex + i];
+                        }
+                        FillModule(c * 10, r * 8, module);
                         break;
                     default:
                         break;

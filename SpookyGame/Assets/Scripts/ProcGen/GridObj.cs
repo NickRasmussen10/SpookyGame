@@ -36,6 +36,10 @@ public class GridObj : MonoBehaviour
             case 1:
                 sprite.color = Color.black;
                 break;
+            //this is just setting up ground work for additional tile types
+            case 2:
+                sprite.color = Color.cyan;
+                break;
             default:
                 break;
         }
