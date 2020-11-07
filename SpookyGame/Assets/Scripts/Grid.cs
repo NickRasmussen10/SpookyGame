@@ -136,16 +136,25 @@ public class Grid : MonoBehaviour
             for(int c = 0; c < module[r].Length; c++)
             {
                 char tileType = module[r][c];
-                switch (tileType)
+                int tileInt;
+                if (System.Int32.TryParse(tileType.ToString(), out tileInt))
                 {
-                    case '#':
-                        grid[pX + c, pY + r].GetComponent<GridObj>().SetState(1);
-                        break;
-                    case '.':
-                        grid[pX + c, pY + r].GetComponent<GridObj>().SetState(0);
-                        break;
-                    default:
-                        break;
+                    if (Random.Range(0, tileInt) == 0) grid[pX + c, pY + r].GetComponent<GridObj>().SetState(0);
+                    else grid[pX + c, pY + r].GetComponent<GridObj>().SetState(1);
+                }
+                else
+                {
+                    switch (tileType)
+                    {
+                        case '#':
+                            grid[pX + c, pY + r].GetComponent<GridObj>().SetState(1);
+                            break;
+                        case '.':
+                            grid[pX + c, pY + r].GetComponent<GridObj>().SetState(0);
+                            break;
+                        default:
+                            break;
+                    }
                 }
             }
         }
