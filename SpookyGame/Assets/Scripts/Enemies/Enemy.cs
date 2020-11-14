@@ -11,6 +11,11 @@ public class Enemy : MonoBehaviour
     protected int damage = 1; // amount of damage this enemy's attacks deal
     protected int damageScale = 1;
 
+    protected int amntIframe = 1; // 2 seconds cooldown
+    protected float iFrameCounter = 0; // counts the seconds until damage is dealt again
+
+    protected float speed; // represents the number of seconds until the enemy moves again
+
     static public Player playerRef;
     static public SceneMngr mngrRef;
     protected Grid gridRef;
@@ -23,17 +28,20 @@ public class Enemy : MonoBehaviour
     public int GridY { get { return gridY; } }
 
     // Start is called before the first frame update
-    void Start()
+    protected virtual void Start()
     {
         gridRef = FindObjectOfType<Grid>();
         playerRef = FindObjectOfType<Player>();
+        mngrRef = FindObjectOfType<SceneMngr>();
+
+        iFrameCounter = amntIframe; // set the iframecounter so you can take damage from the start of the game
     }
 
     // Update is called once per frame
-    protected void Update()
+    public virtual void Update()
     {
         // Check for damage differences
-        switch (mngrRef.DifficultyLevel)
+        /*switch (mngrRef.DifficultyLevel)
         {
             case 5:
                 damageScale = 2;
@@ -43,13 +51,26 @@ public class Enemy : MonoBehaviour
                 break;
             default:
                 break;
+        }*/
+
+        // Check for damage and increment frame counter
+        if (iFrameCounter >= amntIframe)
+        {
+            if (playerRef.GridY == gridY && playerRef.GridX == gridX)
+            {
+                playerRef.TakeDamage(dealKnockback, damage * damageScale);
+                iFrameCounter = 0;
+            }
+        }
+        else
+        {
+            // Increase iFrameCounter every frame
+            iFrameCounter += Time.deltaTime;
         }
 
-        // Check for damage
-        if (playerRef.GridY == gridY && playerRef.GridX == gridX)
-        {
-            playerRef.TakeDamage(dealKnockback, damage * damageScale);
-        }
+        // DEBUG STUFF
+        Debug.Log("Update from Enemy");
+        Debug.Log(iFrameCounter);
     }
 
     public void setGridLoc(int _gridX, int _gridY)
