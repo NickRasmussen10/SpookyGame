@@ -93,3 +93,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16027b6898ef3fc43817df1810cbb857, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spr_Stone:
+  - sprite: {fileID: 21300000, guid: 8be325aa12571fc4686eeaadae843852, type: 3}
+    frequency: 0.1
+  - sprite: {fileID: 21300000, guid: a53a39b6d1ecfbc4a8912ae723861485, type: 3}
+    frequency: 0.1
+  - sprite: {fileID: 21300000, guid: 0e4a1ff55e9574049b17ae72f9acd31b, type: 3}
+    frequency: 0.1
+  - sprite: {fileID: 21300000, guid: 018c4f1fd1323b849a817199081c5e26, type: 3}
+    frequency: 0.1
+  - sprite: {fileID: 21300000, guid: 74e7ac12e07141744b92665004ffd4c2, type: 3}
+    frequency: 1
+  spr_Gates:
+  - sprite: {fileID: 21300000, guid: a076e78177cc0d24c95a7389d54032a2, type: 3}
+    frequency: 1

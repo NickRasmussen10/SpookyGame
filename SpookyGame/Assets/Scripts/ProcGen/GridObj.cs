@@ -2,11 +2,21 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
+public struct SpriteObj
+{
+    public Sprite sprite;
+    public float frequency;
+}
+
+
 public class GridObj : MonoBehaviour
 {
     int state = 0;
     public int GetState() { return state; }
     SpriteRenderer sprite;
+    [SerializeField] SpriteObj[] spr_Stone;
+    [SerializeField] SpriteObj[] spr_Gates;
 
     private void Awake()
     {
@@ -31,10 +41,17 @@ public class GridObj : MonoBehaviour
         switch (state)
         {
             case 0:
-                sprite.color = Color.white;
+                foreach(SpriteObj spr in spr_Stone)
+                {
+                    if(Random.Range(0.0f,1.0f) <= spr.frequency)
+                    {
+                        sprite.sprite = spr.sprite;
+                        break;
+                    }
+                }
                 break;
             case 1:
-                sprite.color = Color.black;
+                sprite.sprite = spr_Gates[0].sprite;
                 break;
             //this is just setting up ground work for additional tile types
             case 2:
