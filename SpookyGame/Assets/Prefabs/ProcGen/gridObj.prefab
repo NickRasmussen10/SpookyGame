@@ -105,5 +105,5 @@ MonoBehaviour:
   - sprite: {fileID: 21300000, guid: 74e7ac12e07141744b92665004ffd4c2, type: 3}
     frequency: 1
   spr_Gates:
-  - sprite: {fileID: 21300000, guid: a076e78177cc0d24c95a7389d54032a2, type: 3}
+  - sprite: {fileID: 21300000, guid: 9fae9f471775da44393a54d80822d7a2, type: 3}
     frequency: 1
