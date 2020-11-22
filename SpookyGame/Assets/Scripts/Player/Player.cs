@@ -11,6 +11,8 @@ public class Player : MonoBehaviour
     private int PrevSpaceX;
     private int PrevSpaceY;
 
+    bool controlsActive = true;
+
     private int health = 5;
 
     Grid grid;
@@ -34,44 +36,54 @@ public class Player : MonoBehaviour
     void Update()
     {
         // Movement
-        if (Input.GetKeyDown(KeyCode.W))
+        if (controlsActive)
         {
-            if (grid.VerifyPosition(gridX, gridY + 1))
+            if (Input.GetKey(KeyCode.W))
             {
-                PrevSpaceX = gridX;
-                PrevSpaceY = gridY;
-                gridY++;
-                SetPosition(gridX, gridY);
+                if (grid.VerifyPosition(gridX, gridY + 1))
+                {
+                    PrevSpaceX = gridX;
+                    PrevSpaceY = gridY;
+                    gridY++;
+                    StartCoroutine(MoveTo(gridX, gridY));
+                }
             }
-        }
-        /*else*/ if (Input.GetKeyDown(KeyCode.S))
-        {
-            if (grid.VerifyPosition(gridX, gridY - 1))
+            /*else*/
+            if (Input.GetKey(KeyCode.S))
             {
-                PrevSpaceX = gridX;
-                PrevSpaceY = gridY;
-                gridY--;
-                SetPosition(gridX, gridY);
+                if (grid.VerifyPosition(gridX, gridY - 1))
+                {
+                    PrevSpaceX = gridX;
+                    PrevSpaceY = gridY;
+                    gridY--;
+                    StartCoroutine(MoveTo(gridX, gridY));
+                }
             }
-        }
-        /*else*/ if (Input.GetKeyDown(KeyCode.A))
-        {
-            if (grid.VerifyPosition(gridX - 1, gridY))
+            /*else*/
+            if (Input.GetKey(KeyCode.A))
             {
-                PrevSpaceX = gridX;
-                PrevSpaceY = gridY;
-                gridX--;
-                SetPosition(gridX, gridY);
+                if (grid.VerifyPosition(gridX - 1, gridY))
+                {
+                    PrevSpaceX = gridX;
+                    PrevSpaceY = gridY;
+                    gridX--;
+                    StartCoroutine(MoveTo(gridX, gridY));
+
+                    GetComponent<SpriteRenderer>().flipX = true;
+                }
             }
-        }
-        /*else*/ if (Input.GetKeyDown(KeyCode.D))
-        {
-            if (grid.VerifyPosition(gridX + 1, gridY))
+            /*else*/
+            if (Input.GetKey(KeyCode.D))
             {
-                PrevSpaceX = gridX;
-                PrevSpaceY = gridY;
-                gridX++;
-                SetPosition(gridX, gridY);
+                if (grid.VerifyPosition(gridX + 1, gridY))
+                {
+                    PrevSpaceX = gridX;
+                    PrevSpaceY = gridY;
+                    gridX++;
+                    StartCoroutine(MoveTo(gridX, gridY));
+
+                    GetComponent<SpriteRenderer>().flipX = false;
+                }
             }
         }
     }
@@ -91,5 +103,26 @@ public class Player : MonoBehaviour
         }
 
         health -= amt;
+    }
+
+    public IEnumerator MoveTo(int gridX, int gridY)
+    {
+        controlsActive = false;
+        float lerpVal = 0.0f;
+        float x = 0.0f;
+        float y = 0.0f;
+        Vector3 start = transform.position;
+        Vector3 destination = grid.GridToWorldPosition(new Vector3(gridX,gridY));
+
+        while (lerpVal < 1.0f)
+        {
+            x = Mathf.Lerp(start.x, destination.x, lerpVal);
+            y = Mathf.Lerp(start.y, destination.y, lerpVal);
+            transform.position = new Vector3(x, y);
+
+            lerpVal += 0.1f;
+            yield return null;
+        }
+        controlsActive = true;
     }
 }
