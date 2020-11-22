@@ -11,6 +11,7 @@ public class Grid : MonoBehaviour
 
     [SerializeField] GameObject pref_GridTile;
     [SerializeField] GameObject pref_Candy;
+    [SerializeField] GameObject pref_Mummy;
 
     [SerializeField] float candyChance = 0.5f;
 
@@ -173,6 +174,10 @@ public class Grid : MonoBehaviour
                         case 'c':
                             grid[pX + c, pY + r].GetComponent<GridObj>().SetState(0);
                             if(Random.Range(0.0f,1.0f) < candyChance) Instantiate(pref_Candy, grid[pX + c, pY + r].transform.position, Quaternion.identity);
+                            break;
+                        case 'm':
+                            grid[pX + c, pY + r].GetComponent<GridObj>().SetState(0);
+                            Instantiate(pref_Mummy, grid[pX + c, pY + r].transform.position, Quaternion.identity);
                             break;
                         default:
                             break;

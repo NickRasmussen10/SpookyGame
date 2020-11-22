@@ -50,3 +50,6 @@ MonoBehaviour:
     type: 3}
   pref_Candy: {fileID: 5787346082539006400, guid: dbe6acc1021461b418f72b0fca4e442b,
     type: 3}
+  pref_Mummy: {fileID: 6419863444824705336, guid: ced0c8133d28c2e4f9a85646d8586e81,
+    type: 3}
+  candyChance: 0.5

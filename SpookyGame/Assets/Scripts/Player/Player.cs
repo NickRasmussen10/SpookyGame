@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
@@ -12,6 +13,9 @@ public class Player : MonoBehaviour
     private int PrevSpaceY;
 
     bool controlsActive = true;
+
+    [SerializeField] Text candyText;
+    int candy = 0;
 
     private int health = 5;
 
@@ -124,5 +128,11 @@ public class Player : MonoBehaviour
             yield return null;
         }
         controlsActive = true;
+    }
+
+    public void AddCandy(int numCandy = 1)
+    {
+        candy += numCandy;
+        candyText.text = "Candy: " + candy;
     }
 }

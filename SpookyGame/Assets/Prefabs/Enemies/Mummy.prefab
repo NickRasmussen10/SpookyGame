@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7470831595819120834}
   - component: {fileID: 8331637342461618247}
+  - component: {fileID: 6558380783586980576}
   m_Layer: 0
   m_Name: Mummy
   m_TagString: Untagged
@@ -80,3 +81,18 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &6558380783586980576
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6419863444824705336}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da744212b955bcf4987dacf1d02c4b2e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sprintRadius: 5
+  gridXStart: 0
+  gridYStart: 0
