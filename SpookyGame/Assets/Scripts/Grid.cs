@@ -10,6 +10,9 @@ public class Grid : MonoBehaviour
     public float tileSize = 1;
 
     [SerializeField] GameObject pref_GridTile;
+    [SerializeField] GameObject pref_Candy;
+
+    [SerializeField] float candyChance = 0.5f;
 
     public GameObject[,] grid;
     int[,] grid_modules;
@@ -110,7 +113,7 @@ public class Grid : MonoBehaviour
             for (int c = 0; c < grid_modules.GetLength(1); c++)
             {
                 //TODO: make this support different numbers of modules for different module types
-                int moduleIndex = Random.Range(0, 2) * 8;
+                int moduleIndex = Random.Range(0, 3) * 8;
                 string[] module = new string[8];
                     switch (grid_modules[c, r])
                     {
@@ -166,6 +169,10 @@ public class Grid : MonoBehaviour
                             break;
                         case '.':
                             grid[pX + c, pY + r].GetComponent<GridObj>().SetState(0);
+                            break;
+                        case 'c':
+                            grid[pX + c, pY + r].GetComponent<GridObj>().SetState(0);
+                            if(Random.Range(0.0f,1.0f) < candyChance) Instantiate(pref_Candy, grid[pX + c, pY + r].transform.position, Quaternion.identity);
                             break;
                         default:
                             break;

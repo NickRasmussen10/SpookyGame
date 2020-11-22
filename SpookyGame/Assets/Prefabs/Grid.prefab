@@ -48,3 +48,5 @@ MonoBehaviour:
   tileSize: 0.6
   pref_GridTile: {fileID: 1114286666878356576, guid: 85c583bbaea852d488efaf287635eb00,
     type: 3}
+  pref_Candy: {fileID: 5787346082539006400, guid: dbe6acc1021461b418f72b0fca4e442b,
+    type: 3}
